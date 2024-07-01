@@ -152,5 +152,19 @@ h2 {
     background-image: url(/Lieferino/img/title_burger.jpg);
     background-position: center;
     background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
     
+}
+
+.burgerLogo {
+    height: 150px;
+    width: 150px;
+    background-image: url(/Lieferino/img/burger_logo.png);
+    background-position: center;
+    background-size: cover;
+    margin-left: 100px;
+    border: 2px solid rgb(17, 16, 22);
+    margin-bottom: -50px;
 }
