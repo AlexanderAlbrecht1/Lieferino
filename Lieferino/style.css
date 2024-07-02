@@ -169,8 +169,15 @@ h2 {
     margin-bottom: -50px;
 }
 
-.restaurantDetails {
+
+.details {
     margin-left: 16px;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+}
+.nameAndEvaluation {
+    
     margin-top: 32px;
     display: flex;
     flex-direction: row;
@@ -193,4 +200,32 @@ h2 {
     font-family: "Titillium Web", sans-serif;
     font-size: 18px;
     margin-right: 8px;
+}
+
+span, p {
+    font-family: "Titillium Web", sans-serif;
+}
+
+.menuSlider {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    display: flex;
+    justify-content: space-evenly;
+    border: 3px solid rgb(17, 16, 22);
+    border-radius: 15px;
+}
+
+a {
+    text-decoration: none;
+    font-family: "Titillium Web", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(17, 16, 22);
+    padding: 0 12px;
+}
+
+a:hover {
+    background-color: rgb(1, 157, 224, 0.2);
+    border-radius: 5px;
 }

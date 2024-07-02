@@ -12,11 +12,11 @@
     <link rel="shortcut icon" href="/Lieferino/icons/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    <title>Lieferino</title>
+    <title>Yummy Burger</title>
 
 </head>
 
-<body>
+<body onload="renderMeals">
 
     <header>
         <div class="logoHeader">
@@ -39,25 +39,40 @@
 
             <div class="titleBurger">
                 <div class="burgerLogo">
-                    
+
                 </div>
             </div>
-            <div class="restaurantDetails">
-                <h2>Yummy Burger</h2>
-                <div class="stars">
-                    <p>Bewertung: 4,6</p>
-                    <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                    <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                    <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                    <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                    <img src="/Lieferino/icons/star-half-stroke-regular.svg" alt="">
+                <div class="details">
+                    <div class="nameAndEvaluation">
+                        <h2>Yummy Burger</h2>
+                        <div class="stars">
+                            <p>Bewertung: 4,6</p>
+                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                            <img src="/Lieferino/icons/star-half-stroke-regular.svg" alt="">
+                        </div>
+                    </div>
+                    <h4>Mindestbestellwert: 12 Euro/ Liefergühr 1,50 Euro</h4>
+                    <span>Willkommen in unserem veganen Burgerladen in Berlin-Kreuzberg! Genieße bei uns saftige Beyond Meat Patties, hausgemachte Seitan-Burger und kreative Gemüsevariationen. Alle Burger werden mit frischen regionalen Zutaten liebevoll zubereitet. Dazu bieten wir knusprige Süßkartoffelpommes, frische Salate, hausgemachte Dips, vegane Desserts und erfrischende Smoothies. Unser gemütliches Lokal lädt zum Verweilen ein und schafft eine entspannte Atmosphäre für Genussmomente allein, mit Freunden oder der Familie. Komm vorbei und entdecke die Vielfalt und Qualität unserer veganen Köstlichkeiten in Berlin-Kreuzberg!</span>
                 </div>
+            <div class="menuSlider">
+                <a href="#">Burger</a>
+                <a href="#">Beilagen</a>
+                <a href="#">Soßen</a>
+                <a href="#">Salate</a>
+                <a href="#">Desserts</a>
+                <a href="#">Getränke</a>
+                <a href="#">Merchandise</a>
             </div>
-    
+            <div id="mealSection">
+
+            </div>
 
 
         </div>
-       
+
         <div class="shoppingBasket">
             <h2>Warenkorb</h2>
             <div class="deliverOrTakeAway">
