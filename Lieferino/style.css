@@ -168,3 +168,29 @@ h2 {
     border: 2px solid rgb(17, 16, 22);
     margin-bottom: -50px;
 }
+
+.restaurantDetails {
+    margin-left: 16px;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.stars {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.stars img {
+    height: 24px;
+}
+
+.stars p {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 18px;
+    margin-right: 8px;
+}
