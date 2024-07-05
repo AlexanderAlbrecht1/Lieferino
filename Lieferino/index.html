@@ -11,12 +11,14 @@
         rel="stylesheet">
     <link rel="shortcut icon" href="/Lieferino/icons/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="arrys.js"></script>
+    <script src="templates.js"></script>
     <script src="script.js"></script>
     <title>Yummy Burger</title>
 
 </head>
 
-<body onload="renderMeals">
+<body onload="renderMeals()">
 
     <header>
         <div class="logoHeader">
@@ -42,31 +44,37 @@
 
                 </div>
             </div>
-                <div class="details">
-                    <div class="nameAndEvaluation">
-                        <h2>Yummy Burger</h2>
-                        <div class="stars">
-                            <p>Bewertung: 4,6</p>
-                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                            <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
-                            <img src="/Lieferino/icons/star-half-stroke-regular.svg" alt="">
-                        </div>
+            <div class="details">
+                <div class="nameAndEvaluation">
+                    <h2>Yummy Burger</h2>
+                    <div class="stars">
+                        <p>Bewertung: 4,6</p>
+                        <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                        <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                        <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                        <img src="/Lieferino/icons/star-solid_yellow.svg" alt="">
+                        <img src="/Lieferino/icons/star-half-stroke-regular.svg" alt="">
                     </div>
-                    <h4>Mindestbestellwert: 12 Euro/ Liefergühr 1,50 Euro</h4>
-                    <span>Willkommen in unserem veganen Burgerladen in Berlin-Kreuzberg! Genieße bei uns saftige Beyond Meat Patties, hausgemachte Seitan-Burger und kreative Gemüsevariationen. Alle Burger werden mit frischen regionalen Zutaten liebevoll zubereitet. Dazu bieten wir knusprige Süßkartoffelpommes, frische Salate, hausgemachte Dips, vegane Desserts und erfrischende Smoothies. Unser gemütliches Lokal lädt zum Verweilen ein und schafft eine entspannte Atmosphäre für Genussmomente allein, mit Freunden oder der Familie. Komm vorbei und entdecke die Vielfalt und Qualität unserer veganen Köstlichkeiten in Berlin-Kreuzberg!</span>
                 </div>
-            <div class="menuSlider">
-                <a href="#">Burger</a>
-                <a href="#">Beilagen</a>
-                <a href="#">Soßen</a>
-                <a href="#">Salate</a>
-                <a href="#">Desserts</a>
-                <a href="#">Getränke</a>
-                <a href="#">Merchandise</a>
+                <h4>Mindestbestellwert: 12 Euro/ Liefergühr 1,50 Euro</h4>
+                <span>Willkommen in unserem veganen Burgerladen in Berlin-Kreuzberg! Genieße bei uns saftige Beyond Meat
+                    Patties, hausgemachte Seitan-Burger und kreative Gemüsevariationen. Alle Burger werden mit frischen
+                    regionalen Zutaten liebevoll zubereitet. Dazu bieten wir knusprige Süßkartoffelpommes, frische
+                    Salate, hausgemachte Dips, vegane Desserts und erfrischende Smoothies. Unser gemütliches Lokal lädt
+                    zum Verweilen ein und schafft eine entspannte Atmosphäre für Genussmomente allein, mit Freunden oder
+                    der Familie. Komm vorbei und entdecke die Vielfalt und Qualität unserer veganen Köstlichkeiten in
+                    Berlin-Kreuzberg!</span>
             </div>
-            <div id="mealSection">
+            <div class="menuSlider">
+                <a href="#Burger">Burger</a>
+                <a href="#Beilagen">Beilagen</a>
+                <a href="#Soßen">Soßen</a>
+                <a href="#Salate">Salate</a>
+                <a href="#Desserts">Desserts</a>
+                <a href="#Getränke">Getränke</a>
+                <a href="#Merchandise">Merchandise</a>
+            </div>
+            <div id="mealSection" class="mealSection">
 
             </div>
 
