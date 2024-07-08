@@ -82,7 +82,7 @@ main {
 }
 
 .mainContent {
-    width: 80vw;
+    
     display: flex;
     flex-direction: column;
 
@@ -93,7 +93,7 @@ main {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    width: 20vw;
+    min-width: 350px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -219,6 +219,7 @@ span, p {
     position: -webkit-sticky;
     top: 8px;
     background-color: rgb(251, 251, 251);
+    flex-wrap: wrap;
 }
 
 a {
@@ -241,6 +242,7 @@ a:hover {
     margin-left: 16px;
     margin-right: 16px;
     font-family: "Titillium Web", sans-serif;
+    
 }
 
 .mealDetails {
@@ -250,6 +252,11 @@ a:hover {
     border: 1px solid rgb(17, 16, 22);
     border-radius: 5px;
     margin-bottom: 16px;
+}
+
+.mealDetails:hover {
+    background-color: rgb(1, 157, 224, 0.2);
+    cursor: pointer;
 }
 
 #buttonAddToBasket {
@@ -282,4 +289,18 @@ a:hover {
 .mealPrice {
     padding-left: 8px;
     font-weight: 600;
+}
+
+.price {
+    display: flex;
+    
+}
+
+@media(max-width:1200px) {
+    .shoppingBasket{
+        display: none;
+    }
+    .mainContent {
+        width: 100%;
+    }
 }

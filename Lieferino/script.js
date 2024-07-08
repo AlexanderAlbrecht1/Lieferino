@@ -7,11 +7,21 @@ function renderMeals() {
             let meal = food[index].name[x];
             let description = food[index].description[x];
             let price = food[index].price[x];
-            document.getElementById(`${headlineMealBox}`).innerHTML += generateMealDetailsHTML (meal, description, price);
+            document.getElementById(`${headlineMealBox}`).innerHTML += generateMealDetailsHTML (index,x,meal, description, price.toFixed(2));
         }
     }
 }
 
+function addToBasket(index,x) {
+    let newBasketMealName = document.getElementById(`mealName${index}${x}`);
+    let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
+    
+    console.log(newBasketMealName.innerText);
+    console.log(newBasketMealPrice.innerText);
+    
+   basket[0].name.push(newBasketMealName.innerText);
+   basket[0].price.push(newBasketMealPrice.innerText);
+}
 
 
 function openBurgermenu(x) {

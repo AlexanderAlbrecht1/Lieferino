@@ -19,15 +19,15 @@ let food = [
     },
     {
         "headline":['Salate'],
-        "name": ['Pommes-Frites', 'Crazy-Frites', 'Sweet-Frites'],
-        "description":['Dicke Pommes aus regionalen Katoffeln', 'Curley-Frites aus regionalen Kartoffeln', 'Dünne Pommes Süßkartoffeln aus dem Burgenland'],
-        "price": [3.90, 4.70, 4.90],
+        "name": ['Salat grischicher Art', 'Bauernsalat', 'Krautsalat'],
+        "description":['Gemischter Salat mit Olvien und veganem Feta, veganes Dressing', 'Gemischter Salat', 'Weißkohl und Karottensalat mit Veganaise'],
+        "price": [7.90, 8.70, 6.90],
     },
     {
         "headline":['Desserts'],
-        "name": ['Pommes-Frites', 'Crazy-Frites', 'Sweet-Frites'],
-        "description":['Dicke Pommes aus regionalen Katoffeln', 'Curley-Frites aus regionalen Kartoffeln', 'Dünne Pommes Süßkartoffeln aus dem Burgenland'],
-        "price": [3.90, 4.70, 4.90],
+        "name": ['veganer Cheescake', 'veganer Brownie'],
+        "description":['', ''],
+        "price": [5.60, 5.50],
     },
     {
         "headline":['Getränke'],
@@ -41,4 +41,11 @@ let food = [
         "description":['Yummy Burgerlogo als Eggshellsticker'],
         "price": [1.00],
     },
+]
+
+let basket = [
+    {
+        "name": [],
+        "price": [],
+    }
 ]

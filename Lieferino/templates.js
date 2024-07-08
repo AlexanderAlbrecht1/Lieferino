@@ -6,13 +6,15 @@ function generateMealSectionHTML(headlineMealBox) {
               `
 }
 
-function generateMealDetailsHTML (meal, description, price) {
+function generateMealDetailsHTML (index,x,meal, description, price) {
 return /*html*/`
-<div class="mealDetails">
-   <div class="mealDetailsText">
-       <span class="mealName">${meal}</span>  
+<div onclick="addToBasket(${index}, ${x})" class="mealDetails">
+   <div  class="mealDetailsText">
+       <span id="mealName${index}${x}" class="mealName">${meal}</span>  
        <span class="mealDescription">${description}</span> 
-       <span class="mealPrice">${price} Euro</span> <br>
+       <div class="price">
+       <div id="mealPrice${index}${x}" class="mealPrice">${price}</div> <span> Euro</span>
+       </div>
    </div>
    <img id="buttonAddToBasket" src="/Lieferino/icons/cart-plus-solid.svg" alt="">
 </div>
