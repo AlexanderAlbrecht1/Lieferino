@@ -47,5 +47,6 @@ let basket = [
     {
         "name": [],
         "price": [],
+        "ammount":[]
     }
 ]

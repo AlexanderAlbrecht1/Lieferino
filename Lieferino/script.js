@@ -21,6 +21,60 @@ function addToBasket(index,x) {
     
    basket[0].name.push(newBasketMealName.innerText);
    basket[0].price.push(newBasketMealPrice.innerText);
+   basket[0].ammount.push(1);
+
+   renderBasket();
+   renderCosts();
+}
+
+function renderBasket() {
+    document.getElementById('basket').innerHTML = ``;
+    
+    for (let i = 0; i < basket[0].name.length; i++) {
+        let name = basket[0].name[i];
+        let price = basket[0].price[i];
+        let ammount =basket[0].ammount[i];
+        
+        document.getElementById('basket').innerHTML +=  /*html*/`
+        <div class="ItemInBasket">
+            <div id="basketAmmount">${ammount}</div>
+            <div class="basketName">${name}</div>
+            <div id="basketPrice">${price} Euro</div>
+        </div> 
+        <div class="changeAmmount">
+            <img id="minus${i}" src="/Lieferino/icons/minus-solid.svg" alt="Minus">
+            <div class="NumberChangeAmmount">${ammount}</div>
+            <img id="plus${i}" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
+        </div>
+        
+             
+        `
+        ;
+        
+    }
+}
+
+function increaseAmmount() {
+    
+}
+
+function renderCosts() {
+    document.getElementById('costs').innerHTML = ``;
+   
+    document.getElementById('costs').innerHTML = /*html*/`
+            <div class="subtotal">
+                <span>Zwischensumme</span>
+                <div id="subtotal Value"> Euro</div>
+            </div>
+            <div class="deliveyCosts">
+                <span>Lieferkosten</span>
+                <div id="deliveryCostsValue"> Euro</div>
+            </div>
+            <div class="totalCosts">
+                <span>Gesamtsumme</span>
+                <div id="totalCostsValue"> Euro</div>
+            </div>`
+
 }
 
 
