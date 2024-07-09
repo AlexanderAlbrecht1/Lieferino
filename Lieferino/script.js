@@ -15,10 +15,6 @@ function renderMeals() {
 function addToBasket(index,x) {
     let newBasketMealName = document.getElementById(`mealName${index}${x}`);
     let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
-    
-    console.log(newBasketMealName.innerText);
-    console.log(newBasketMealPrice.innerText);
-    
    basket[0].name.push(newBasketMealName.innerText);
    basket[0].price.push(newBasketMealPrice.innerText);
    basket[0].ammount.push(1);
@@ -43,8 +39,8 @@ function renderBasket() {
         </div> 
         <div class="changeAmmount">
             <img id="minus${i}" src="/Lieferino/icons/minus-solid.svg" alt="Minus">
-            <div class="NumberChangeAmmount">${ammount}</div>
-            <img id="plus${i}" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
+            <div id="NumberChangeAmmount">${ammount}</div>
+            <img id="plus${i}" onclick="increaseAmmount(${i})" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
         </div>
         
              
@@ -54,8 +50,11 @@ function renderBasket() {
     }
 }
 
-function increaseAmmount() {
-    
+function increaseAmmount(i) {
+    let ammount =basket[0].ammount[i];
+    let newAmmount = ammount+1;
+    basket[0].ammount[i] = newAmmount;
+    renderBasket();
 }
 
 function renderCosts() {
