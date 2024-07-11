@@ -383,6 +383,22 @@ a:hover {
     cursor: pointer;
 }
 
+.edit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.trash {
+    height: 32px;
+    margin-left: 32px;
+}
+
+.trash:hover {
+    cursor: pointer;
+}
+
 @media(max-width:1200px) {
     .shoppingBasket{
         display: none;

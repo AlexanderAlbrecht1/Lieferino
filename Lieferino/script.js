@@ -16,18 +16,23 @@ function renderMeals() {
 function addToBasket(index,x) {
     let newBasketMealName = document.getElementById(`mealName${index}${x}`);
     let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
-   basket[0].name.push(newBasketMealName.innerText);
-   basket[0].price.push(newBasketMealPrice.innerText);
-   basket[0].totalPrice.push(newBasketMealPrice.innerText);
-   basket[0].ammount.push(1);
-
+    let trueFalse = basket[0].name.includes(newBasketMealName.innerText);
+    console.log(trueFalse);
+    if (trueFalse === false) {
+        basket[0].name.push(newBasketMealName.innerText);
+        basket[0].price.push(newBasketMealPrice.innerText);
+        basket[0].totalPrice.push(newBasketMealPrice.innerText);
+        basket[0].ammount.push(1);
+    } else {
+        console.log(basket[0].name.indexOf(newBasketMealName.innerText));
+        let y = basket[0].name.indexOf(newBasketMealName.innerText);
+        increaseAmmount(y);
+    }
    renderBasket();
-   
 }
 
 function renderBasket() {
     document.getElementById('basket').innerHTML = ``;
-
     if (basket[0].ammount.length == 0) {
         document.getElementById('basket').innerHTML = `
         <div class="emptyBasket">
@@ -35,28 +40,24 @@ function renderBasket() {
             <span>Dein Warenkorb ist noch leer. Füge Gerichte aus der Karte hinzu um zu bestellen.</span>
         </div>`;
     } else {
-        
-    
-    
     for (let i = 0; i < basket[0].name.length; i++) {
         let name = basket[0].name[i];
         let price = basket[0].totalPrice[i];
-        let ammount =basket[0].ammount[i];
-        
-        
+        let ammount =basket[0].ammount[i];        
         document.getElementById('basket').innerHTML +=  /*html*/`
         <div class="ItemInBasket">
             <div id="basketAmmount">${ammount}</div>
             <div class="basketName">${name}</div>
             <div id="basketPrice">${price} Euro</div>
         </div> 
-        <div class="changeAmmount">
-            <img id="minus${i}" onclick="decreaseAmmount(${i})" src="/Lieferino/icons/minus-solid.svg" alt="Minus">
-            <div id="NumberChangeAmmount">${ammount}</div>
-            <img id="plus${i}" onclick="increaseAmmount(${i})" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
-        </div>
-        
-             
+        <div class="edit">
+            <img onclick="deleteItem(${i})" class="trash" src="/Lieferino/icons/trash-solid.svg" alt="">
+            <div class="changeAmmount">
+                <img id="minus${i}" onclick="decreaseAmmount(${i})" src="/Lieferino/icons/minus-solid.svg" alt="Minus">
+                <div id="NumberChangeAmmount">${ammount}</div>
+                <img id="plus${i}" onclick="increaseAmmount(${i})" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
+            </div>  
+        </div>       
         `
         ;
     }
@@ -126,6 +127,14 @@ function renderCosts() {
             </div>`
     }
     
+}
+
+function deleteItem(i) {
+    basket[0].ammount.splice([i],1);
+    basket[0].name.splice([i],1);
+    basket[0].price.splice([i],1);
+    basket[0].totalPrice.splice([i],1);
+    renderBasket()
 }
 
 
