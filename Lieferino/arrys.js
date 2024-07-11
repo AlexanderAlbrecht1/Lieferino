@@ -51,3 +51,5 @@ let basket = [
         "totalPrice": []
     }
 ]
+
+let deliverCosts = 4.99 

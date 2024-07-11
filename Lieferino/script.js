@@ -10,6 +10,7 @@ function renderMeals() {
             document.getElementById(`${headlineMealBox}`).innerHTML += generateMealDetailsHTML (index,x,meal, description, price.toFixed(2));
         }
     }
+    
 }
 
 function addToBasket(index,x) {
@@ -21,11 +22,21 @@ function addToBasket(index,x) {
    basket[0].ammount.push(1);
 
    renderBasket();
-   renderCosts();
+   
 }
 
 function renderBasket() {
     document.getElementById('basket').innerHTML = ``;
+
+    if (basket[0].ammount.length == 0) {
+        document.getElementById('basket').innerHTML = `
+        <div class="emptyBasket">
+            <img src="/Lieferino/icons/basket-shopping-solid.svg" alt="">
+            <span>Dein Warenkorb ist noch leer. Füge Gerichte aus der Karte hinzu um zu bestellen.</span>
+        </div>`;
+    } else {
+        
+    
     
     for (let i = 0; i < basket[0].name.length; i++) {
         let name = basket[0].name[i];
@@ -48,9 +59,9 @@ function renderBasket() {
              
         `
         ;
-        
     }
-    
+    }
+    renderCosts();
 }
 
 function increaseAmmount(i) {
@@ -61,7 +72,7 @@ function increaseAmmount(i) {
     let newPrice = (price*newAmmount);
     basket[0].totalPrice[i] = newPrice.toFixed(2);
     renderBasket();
-    renderCosts();
+    
 }
 
 function decreaseAmmount(i) {
@@ -77,30 +88,44 @@ function decreaseAmmount(i) {
         basket[0].price.splice([i],1);
         basket[0].totalPrice.splice([i],1);
         renderBasket();
-        document.getElementById('costs').innerHTML = ``;
+        
     } else {
     renderBasket();
-    renderCosts();
+    
     }
 }
 
 function renderCosts() {
     document.getElementById('costs').innerHTML = ``;
-
-    document.getElementById('costs').innerHTML = /*html*/`
+    
+    if (basket[0].ammount.length == 0) {
+        document.getElementById('costs').innerHTML = ``;  
+    } else {
+        let subTotal = 0;
+        for (let i = 0; i < basket[0].totalPrice.length; i++) {
+                subTotal +=  +basket[0].totalPrice[i];      
+        }
+        let totalCosts = +subTotal + +deliverCosts
+        document.getElementById('costs').innerHTML = /*html*/`
             <div class="subtotal">
                 <span>Zwischensumme</span>
-                <div id="subtotal Value"> Euro</div>
+                <div id="subtotal Value">${subTotal.toFixed(2)} Euro</div>
             </div>
             <div class="deliveyCosts">
                 <span>Lieferkosten</span>
-                <div id="deliveryCostsValue"> Euro</div>
+                <div id="deliveryCostsValue">${deliverCosts.toFixed(2)} Euro</div>
             </div>
             <div class="totalCosts">
                 <span>Gesamtsumme</span>
-                <div id="totalCostsValue"> Euro</div>
+                <div id="totalCostsValue">${totalCosts.toFixed(2)} Euro</div>
+            </div>
+            <div class="orderButton">
+                <img src="/Lieferino/icons/bitcoin.svg" alt="Bitcoin">
+                <span>Bestellen</span>
+                <img src="/Lieferino/icons/credit-card-regular.svg" alt="">
             </div>`
-
+    }
+    
 }
 
 
