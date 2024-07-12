@@ -17,14 +17,12 @@ function addToBasket(index,x) {
     let newBasketMealName = document.getElementById(`mealName${index}${x}`);
     let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
     let trueFalse = basket[0].name.includes(newBasketMealName.innerText);
-    console.log(trueFalse);
     if (trueFalse === false) {
         basket[0].name.push(newBasketMealName.innerText);
         basket[0].price.push(newBasketMealPrice.innerText);
         basket[0].totalPrice.push(newBasketMealPrice.innerText);
         basket[0].ammount.push(1);
     } else {
-        console.log(basket[0].name.indexOf(newBasketMealName.innerText));
         let y = basket[0].name.indexOf(newBasketMealName.innerText);
         increaseAmmount(y);
     }
@@ -84,15 +82,9 @@ function decreaseAmmount(i) {
     let newPrice = (price*newAmmount);
     basket[0].totalPrice[i] = newPrice.toFixed(2);
     if (newAmmount <= 0) {
-        basket[0].ammount.splice([i],1);
-        basket[0].name.splice([i],1);
-        basket[0].price.splice([i],1);
-        basket[0].totalPrice.splice([i],1);
-        renderBasket();
-        
+        deleteItem(i);  
     } else {
-    renderBasket();
-    
+        renderBasket();
     }
 }
 
@@ -107,6 +99,7 @@ function renderCosts() {
                 subTotal +=  +basket[0].totalPrice[i];      
         }
         let totalCosts = +subTotal + +deliverCosts
+        
         document.getElementById('costs').innerHTML = /*html*/`
             <div class="subtotal">
                 <span>Zwischensumme</span>
@@ -120,13 +113,36 @@ function renderCosts() {
                 <span>Gesamtsumme</span>
                 <div id="totalCostsValue">${totalCosts.toFixed(2)} Euro</div>
             </div>
-            <div class="orderButton">
-                <img src="/Lieferino/icons/bitcoin.svg" alt="Bitcoin">
-                <span>Bestellen</span>
-                <img src="/Lieferino/icons/credit-card-regular.svg" alt="">
-            </div>`
+           `
+           if (subTotal >= 12) {
+            document.getElementById('costs').innerHTML += /*html*/`
+             <div onclick="placeOrder()" class="orderButton">
+                    <img src="/Lieferino/icons/bitcoin.svg" alt="Bitcoin">
+                    <span>Bestellen</span>
+                    <img src="/Lieferino/icons/credit-card-regular.svg" alt="">
+                </div>
+            `;
+            } else {
+                document.getElementById('costs').innerHTML += /*html*/`
+             <div class="minimumOrderValue">
+                    <img src="/Lieferino/icons/basket-shopping-solid.svg" alt="Bitcoin">
+                    <span>Du hast den Mindestbestellwert von 12,00 EUro noch nicht erreicht. Bitte lege weitere Artikel in deinen Warenkorb um zu bestellen</span>          
+                </div>`
+            }
     }
+
     
+    
+}
+
+function placeOrder(i) {
+    basket[0].ammount.splice(0,basket[0].ammount.length);
+    basket[0].name.splice(0,basket[0].name.length);
+    basket[0].price.splice(0,basket[0].price.length);
+    basket[0].totalPrice.splice(0,basket[0].totalPrice.length);
+    alert("Deine Testbestellung wurde erfolgreich übertragen, wird aber nie bei dir ankommen.");
+    renderBasket();
+
 }
 
 function deleteItem(i) {
