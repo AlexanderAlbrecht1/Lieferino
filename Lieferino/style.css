@@ -44,7 +44,11 @@ header {
     align-items: center;
 }
 
-.flagAndBasket:hover {
+.mobileBasket {
+    display: none;
+}
+
+.mobileBasket:hover {
     cursor: pointer;
 }
 
@@ -78,7 +82,7 @@ main {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    min-width: 350px;
+    min-width: 320px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -199,7 +203,7 @@ h2 {
     border-radius: 15px;
     position: sticky;
     position: -webkit-sticky;
-    top: 8px;
+    top: 68px;
     background-color: rgb(251, 251, 251);
     flex-wrap: wrap;
 }
@@ -406,21 +410,25 @@ footer img {
 }
 
 .showOverlayBasket {
-    position: sticky;
-    top: 67px;
+    position: fixed !important;
+    bottom: 67px !important; 
     right: 320px !important;
     background-color: rgb(255, 255, 255);
 }
 
 @media(max-width:1200px) {
     .shoppingBasket {
-        position: absolute;
+        position: absolute; 
         right: 0;
         top: 67px;
-        z-index: 2;
+        z-index: 100;
         width: 320px;
         transform: translateX(320px);
         transition: all 300ms ease-in-out;
+    }
+
+    .mobileBasket {
+        display: block;
     }
 
     header {
