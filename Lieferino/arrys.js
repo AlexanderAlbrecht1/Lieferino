@@ -1,9 +1,9 @@
 let food = [
     {
         "headline":['Burger'],
-        "name": ['Hamburger', 'Cheesburger', 'Kreuzburger'],
-        "description": ['Burger belegt mit hausgemachtem Veganem Patty aus Erbsenproteinbasis, Grünsalat, eingelegten Gurken, Tomaten, Zwiebeln und hausgemachter veganer Sauce', 'Wie Hamburger + veganem Gouda und veganem Cheddar', 'Wie Hamburger + vegnem Bacon'],
-        "price": [8.50, 9.30, 9.50],
+        "name": ['Hamburger', 'Cheesburger', 'Kreuzburger','Rote Zora'],
+        "description": ['Burger belegt mit Beyond Meat Patty, Grünsalat, eingelegten Gurken, Tomaten, Zwiebeln und hausgemachter veganer Sauce', 'Wie Hamburger + veganem Gouda und veganem Cheddar', 'mit hausgemachtem Seitan-Patty + vegnem Bacon','Hausgemachtes Gemüsepatty auf Rote Beete Basis'],
+        "price": [8.50, 9.30, 9.50, 8.90],
     },
     {
         "headline":['Beilagen'],
@@ -31,7 +31,7 @@ let food = [
     },
     {
         "headline":['Getränke'],
-        "name": ['Lola Cola 0,33l', 'Fassbrause 0,5l', 'Huasgemachter Icetea'],
+        "name": ['Lola Cola 0,33l', 'Fassbrause 0,5l', 'Hausgemachter Icetea'],
         "description":['Import aus der Schweiz - Fair und Nachhaltig', 'aus der bekannten Fertigung in Rixdorf', 'leckerer handmade Icetea - Pfirsich'],
         "price": [3.25, 3.25, 4.10],
     },
@@ -52,4 +52,3 @@ let basket = [
     }
 ]
 
-let deliverCosts = 4.99 
