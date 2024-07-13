@@ -1,3 +1,5 @@
+
+
 function renderMeals() {
     document.getElementById('mealSection').innerHTML = ` `;
     for (let index = 0; index < food.length; index++) {
@@ -16,11 +18,12 @@ function renderMeals() {
 function addToBasket(index, x) {
     let newBasketMealName = document.getElementById(`mealName${index}${x}`);
     let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
+    let priceAsNumber = parseFloat(newBasketMealPrice.innerText);
     let trueFalse = basket[0].name.includes(newBasketMealName.innerText);
     if (trueFalse === false) {
         basket[0].name.push(newBasketMealName.innerText);
-        basket[0].price.push(newBasketMealPrice.innerText);
-        basket[0].totalPrice.push(newBasketMealPrice.innerText);
+        basket[0].price.push(priceAsNumber);
+        basket[0].totalPrice.push(priceAsNumber);
         basket[0].ammount.push(1);
     } else {
         let y = basket[0].name.indexOf(newBasketMealName.innerText);
@@ -40,13 +43,14 @@ function renderBasket() {
     } else {
         for (let i = 0; i < basket[0].name.length; i++) {
             let name = basket[0].name[i];
-            let price = basket[0].totalPrice[i];
+            let price = parseFloat(basket[0].totalPrice[i]);
+            
             let ammount = basket[0].ammount[i];
             document.getElementById('basket').innerHTML +=  /*html*/`
         <div class="ItemInBasket">
             <div id="basketAmmount">${ammount}</div>
             <div class="basketName">${name}</div>
-            <div id="basketPrice">${price} Euro</div>
+            <div id="basketPrice">${price.toFixed(2).replace(".",",")} Euro</div>
         </div> 
         <div class="edit">
             <img onclick="deleteItem(${i})" class="trash" src="/Lieferino/icons/trash-solid.svg" alt="">
@@ -64,14 +68,18 @@ function renderBasket() {
 }
 
 function increaseAmmount(i) {
-    let ammount = basket[0].ammount[i];
+    let ammount = parseFloat(basket[0].ammount[i]);
     let newAmmount = ammount + 1;
     basket[0].ammount[i] = newAmmount;
-    let price = basket[0].price[i];
-    let newPrice = (price * newAmmount);
-    basket[0].totalPrice[i] = newPrice.toFixed(2);
-    renderBasket();
-
+    if (newAmmount === 20) {
+        alert("ACHTUNG! Lieferino kann nicht sicherstellen, dass deine Bestellung angenommen wird! Bitte kontaktiere das Restaurant!");
+        renderBasket();
+    } else {
+        let price = parseFloat(basket[0].price[i]);
+        let newPrice = (+price * +newAmmount);
+        basket[0].totalPrice[i] = parseFloat(newPrice).toFixed(2);
+        renderBasket(); 
+    }
 }
 
 function decreaseAmmount(i) {
@@ -95,7 +103,6 @@ function renderCosts() {
     if (basket[0].ammount.length == 0) {
         document.getElementById('costs').innerHTML = ``;
     } else {
-        //       let deliverCosts = 4.99; 
         let subTotal = 0;
         for (let i = 0; i < basket[0].totalPrice.length; i++) {
             subTotal += +basket[0].totalPrice[i];
@@ -107,15 +114,15 @@ function renderCosts() {
         document.getElementById('costs').innerHTML = /*html*/`
             <div class="subtotal">
                 <span>Zwischensumme</span>
-                <div id="subtotalValue">${subTotal.toFixed(2)} Euro</div>
+                <div id="subtotalValue">${subTotal.toFixed(2).replace(".",",")} Euro</div>
             </div>
             <div class="deliveyCosts">
                 <span>Lieferkosten</span>
-                <div id="deliveryCostsValue">${deliverCosts.toFixed(2)} Euro</div>
+                <div id="deliveryCostsValue">${deliverCosts.toFixed(2).replace(".",",")} Euro</div>
             </div>
             <div class="totalCosts">
                 <span>Gesamtsumme</span>
-                <div id="totalCostsValue">${totalCosts.toFixed(2)} Euro</div>
+                <div id="totalCostsValue">${totalCosts.toFixed(2).replace(".",",") } Euro</div>
             </div>
            `
             
@@ -126,34 +133,18 @@ function renderCosts() {
         document.getElementById('costs').innerHTML = /*html*/`
             <div class="subtotal">
                 <span>Zwischensumme</span>
-                <div id="subtotalValue">${subTotal.toFixed(2)} Euro</div>
+                <div id="subtotalValue">${subTotal.toFixed(2).replace(".",",")} Euro</div>
             </div>
             <div class="deliveyCosts">
                 <span>Lieferkosten</span>
-                <div id="deliveryCostsValue">${deliverCosts.toFixed(2)} Euro</div>
+                <div id="deliveryCostsValue">${deliverCosts.toFixed(2).replace(".",",")} Euro</div>
             </div>
             <div class="totalCosts">
                 <span>Gesamtsumme</span>
-                <div id="totalCostsValue">${totalCosts.toFixed(2)} Euro</div>
+                <div id="totalCostsValue">${totalCosts.toFixed(2).replace(".",",")} Euro</div>
             </div>
            `
         }
-    /*    let totalCosts = +subTotal + +deliverCosts;
-
-        document.getElementById('costs').innerHTML = `
-            <div class="subtotal">
-                <span>Zwischensumme</span>
-                <div id="subtotalValue">${subTotal.toFixed(2)} Euro</div>
-            </div>
-            <div class="deliveyCosts">
-                <span>Lieferkosten</span>
-                <div id="deliveryCostsValue">${deliverCosts.toFixed(2)} Euro</div>
-            </div>
-            <div class="totalCosts">
-                <span>Gesamtsumme</span>
-                <div id="totalCostsValue">${totalCosts.toFixed(2)} Euro</div>
-            </div>
-           ` */
 
         if (subTotal >= 12) {
             document.getElementById('costs').innerHTML += /*html*/`
@@ -205,22 +196,11 @@ function checkDeliverCosts(x) {
 
 }
 
-function myFunction() {
-    var x = document.getElementById("shoppingBasket");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
-
-function openBurgermenu(x) {
-    x.classList.toggle("change");
-}
-
-function showBasket() {
+function showHideBasket() {
     document.getElementById('shoppingBasket').classList.toggle('showOverlayBasket');
 }
+
+
 
 
 

@@ -4,12 +4,15 @@ html {
     background-color: rgb(255, 255, 255);
     scroll-behavior: smooth;
     font-family: "Titillium Web", sans-serif;
-    overflow-x: hidden;
+   
 }
 
 body {
     margin: 0;
+    overflow-x: hidden;
 }
+
+
 
 header {
     width: 100%;

@@ -13,7 +13,7 @@ return /*html*/`
        <span id="mealName${index}${x}" class="mealName">${meal}</span>  
        <span class="mealDescription">${description}</span> 
        <div class="price">
-       <div id="mealPrice${index}${x}" class="mealPrice">${price}</div> <span> Euro</span>
+       <div id="mealPrice${index}${x}" class="mealPrice">${price.replace(".",",")}</div> <span> Euro</span>
        </div>
    </div>
    <img id="buttonAddToBasket" src="/Lieferino/icons/cart-plus-solid.svg" alt="">
