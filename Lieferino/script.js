@@ -49,7 +49,7 @@ function increaseAmmount(i) {
         calculateNewBasketValuePlus(newAmmount, i);
         renderBasket();
         document.getElementById(`plus${i}`).disabled = true;
-        alert("ACHTUNG! Lieferino kann nicht sicherstellen, dass deine Bestellung angenommen wird! Bitte kontaktiere das Restaurant! Bestellmnege kann nicht weiter erhöht werden.");
+        criticalValueDialog();
     } else {
         calculateNewBasketValuePlus(newAmmount, i);
         renderBasket();
@@ -90,7 +90,7 @@ function placeOrder(i) {
     basket[0].price.splice(0, basket[0].price.length);
     basket[0].totalPrice.splice(0, basket[0].totalPrice.length);
     renderBasket();
-    alert("Deine Testbestellung wurde erfolgreich übertragen, wird aber nie bei dir ankommen.");
+    placeOrderDialog();
 }
 
 function deleteItem(i) {
@@ -148,6 +148,20 @@ function pushToBasket(newBasketMealName, newBasketMealPrice) {
     basket[0].price.push(newBasketMealPrice);
     basket[0].totalPrice.push(newBasketMealPrice);
     basket[0].ammount.push(1);
+}
+
+function placeOrderDialog() {
+    document.getElementById('dialogArea').innerHTML = ``;
+    document.getElementById('dialogArea').innerHTML = orderDialogHTML();
+}
+
+function criticalValueDialog() {
+    document.getElementById('dialogArea').innerHTML = ``;
+    document.getElementById('dialogArea').innerHTML = crtiticalValueDialogHTML();
+}
+
+function closeDialog() {
+    document.getElementById('dialogArea').innerHTML = ``;
 }
 
 

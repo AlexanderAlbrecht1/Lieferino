@@ -82,7 +82,33 @@ function minimumOrderValueHTML() {
     return /*html*/`
     <div class="minimumOrderValue">
            <img src="/Lieferino/icons/basket-shopping-solid.svg" alt="">
-           <span>Du hast den Mindestbestellwert von 12,00 EUro noch nicht erreicht. Bitte lege weitere Artikel in deinen Warenkorb um zu bestellen</span>          
+           <span>Du hast den Mindestbestellwert von 12,00 Euro noch nicht erreicht. Bitte lege weitere Artikel in deinen Warenkorb um zu bestellen</span>          
        </div>
     `;
+}
+
+function orderDialogHTML() {
+   return /*html*/ ` 
+    <div onclick="closeDialog()" class="dialogBackground">
+        <div class="dialog">
+            <h1>! ! Hurra ! !</h1>
+            <span>Deine Testbestellung wurde erfolgreich "übertragen", wird aber nie bei dir ankommen.</span>
+        </div>
+        </div>
+    </div>
+    `
+}
+
+function crtiticalValueDialogHTML() {
+    return /*html*/ `
+    <div onclick="closeDialog()" class="dialogBackground">
+        <div class="dialog">
+            <h1>---Kritische Bestellmenge---</h1>
+            <span>Lieferino kann nicht sicherstellen, dass deine Bestellung angenommen wird! <br> 
+            Bitte kontaktiere das Restaurant! <br> <br> 
+            Bestellmnege kann nicht weiter erhöht werden.</span>
+        </div>
+        </div>
+    </div>
+    `
 }
