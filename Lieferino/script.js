@@ -1,5 +1,3 @@
-
-
 function renderMeals() {
     document.getElementById('mealSection').innerHTML = ` `;
     for (let index = 0; index < food.length; index++) {
@@ -12,21 +10,16 @@ function renderMeals() {
             document.getElementById(`${headlineMealBox}`).innerHTML += generateMealDetailsHTML(index, x, meal, description, price.toFixed(2));
         }
     }
-
 }
 
 function addToBasket(index, x) {
-    let newBasketMealName = document.getElementById(`mealName${index}${x}`);
-    let newBasketMealPrice = document.getElementById(`mealPrice${index}${x}`);
-    let priceAsNumber = parseFloat(newBasketMealPrice.innerText);
-    let trueFalse = basket[0].name.includes(newBasketMealName.innerText);
+    let newBasketMealName = food[index].name[x];
+    let newBasketMealPrice = food[index].price[x];
+    let trueFalse = basket[0].name.includes(newBasketMealName);
     if (trueFalse === false) {
-        basket[0].name.push(newBasketMealName.innerText);
-        basket[0].price.push(priceAsNumber);
-        basket[0].totalPrice.push(priceAsNumber);
-        basket[0].ammount.push(1);
+        pushToBasket(newBasketMealName, newBasketMealPrice);
     } else {
-        let y = basket[0].name.indexOf(newBasketMealName.innerText);
+        let y = basket[0].name.indexOf(newBasketMealName);
         increaseAmmount(y);
     }
     renderBasket();
@@ -35,35 +28,16 @@ function addToBasket(index, x) {
 function renderBasket() {
     document.getElementById('basket').innerHTML = ``;
     if (basket[0].ammount.length == 0) {
-        document.getElementById('basket').innerHTML = `
-        <div class="emptyBasket">
-            <img src="/Lieferino/icons/basket-shopping-solid.svg" alt="">
-            <span>Dein Warenkorb ist noch leer. Füge Gerichte aus der Karte hinzu um zu bestellen.</span>
-        </div>`;
+        document.getElementById('basket').innerHTML = emptyBasketHTML();
     } else {
         for (let i = 0; i < basket[0].name.length; i++) {
             let name = basket[0].name[i];
             let price = parseFloat(basket[0].totalPrice[i]);
-            
             let ammount = basket[0].ammount[i];
-            document.getElementById('basket').innerHTML +=  /*html*/`
-        <div class="ItemInBasket">
-            <div id="basketAmmount">${ammount}</div>
-            <div class="basketName">${name}</div>
-            <div id="basketPrice">${price.toFixed(2).replace(".",",")} Euro</div>
-        </div> 
-        <div class="edit">
-            <img onclick="deleteItem(${i})" class="trash" src="/Lieferino/icons/trash-solid.svg" alt="">
-            <div class="changeAmmount">
-                <img id="minus${i}" onclick="decreaseAmmount(${i})" src="/Lieferino/icons/minus-solid.svg" alt="Minus">
-                <div id="NumberChangeAmmount">${ammount}</div>
-                <img id="plus${i}" onclick="increaseAmmount(${i})" src="/Lieferino/icons/plus-solid.svg" alt="Plus">
-            </div>  
-        </div>       
-        `
-                ;
+            document.getElementById('basket').innerHTML += basketItemHTML(ammount, name, price, i,);
         }
     }
+    showAmmountOfItems();
     renderCosts();
 }
 
@@ -71,14 +45,14 @@ function increaseAmmount(i) {
     let ammount = parseFloat(basket[0].ammount[i]);
     let newAmmount = ammount + 1;
     basket[0].ammount[i] = newAmmount;
-    if (newAmmount === 20) {
-        alert("ACHTUNG! Lieferino kann nicht sicherstellen, dass deine Bestellung angenommen wird! Bitte kontaktiere das Restaurant!");
+    if (newAmmount >= 20) {
+        calculateNewBasketValuePlus(newAmmount, i);
         renderBasket();
+        document.getElementById(`plus${i}`).disabled = true;
+        alert("ACHTUNG! Lieferino kann nicht sicherstellen, dass deine Bestellung angenommen wird! Bitte kontaktiere das Restaurant! Bestellmnege kann nicht weiter erhöht werden.");
     } else {
-        let price = parseFloat(basket[0].price[i]);
-        let newPrice = (+price * +newAmmount);
-        basket[0].totalPrice[i] = parseFloat(newPrice).toFixed(2);
-        renderBasket(); 
+        calculateNewBasketValuePlus(newAmmount, i);
+        renderBasket();
     }
 }
 
@@ -98,8 +72,6 @@ function decreaseAmmount(i) {
 
 function renderCosts() {
     document.getElementById('costs').innerHTML = ``;
-    
-
     if (basket[0].ammount.length == 0) {
         document.getElementById('costs').innerHTML = ``;
     } else {
@@ -107,64 +79,9 @@ function renderCosts() {
         for (let i = 0; i < basket[0].totalPrice.length; i++) {
             subTotal += +basket[0].totalPrice[i];
         }
-        if (subTotal >= 50) {
-            let deliverCosts = 0.00;
-            let totalCosts = +subTotal + +deliverCosts;
-
-        document.getElementById('costs').innerHTML = /*html*/`
-            <div class="subtotal">
-                <span>Zwischensumme</span>
-                <div id="subtotalValue">${subTotal.toFixed(2).replace(".",",")} Euro</div>
-            </div>
-            <div class="deliveyCosts">
-                <span>Lieferkosten</span>
-                <div id="deliveryCostsValue">${deliverCosts.toFixed(2).replace(".",",")} Euro</div>
-            </div>
-            <div class="totalCosts">
-                <span>Gesamtsumme</span>
-                <div id="totalCostsValue">${totalCosts.toFixed(2).replace(".",",") } Euro</div>
-            </div>
-           `
-            
-        } else {
-            let deliverCosts = 4.99;
-            let totalCosts = +subTotal + +deliverCosts;
-
-        document.getElementById('costs').innerHTML = /*html*/`
-            <div class="subtotal">
-                <span>Zwischensumme</span>
-                <div id="subtotalValue">${subTotal.toFixed(2).replace(".",",")} Euro</div>
-            </div>
-            <div class="deliveyCosts">
-                <span>Lieferkosten</span>
-                <div id="deliveryCostsValue">${deliverCosts.toFixed(2).replace(".",",")} Euro</div>
-            </div>
-            <div class="totalCosts">
-                <span>Gesamtsumme</span>
-                <div id="totalCostsValue">${totalCosts.toFixed(2).replace(".",",")} Euro</div>
-            </div>
-           `
-        }
-
-        if (subTotal >= 12) {
-            document.getElementById('costs').innerHTML += /*html*/`
-             <div onclick="placeOrder()" class="orderButton">
-                    <img src="/Lieferino/icons/bitcoin.svg" alt="Bitcoin">
-                    <span>Bestellen</span>
-                    <img src="/Lieferino/icons/credit-card-regular.svg" alt="">
-                </div>
-            `;
-        } else {
-            document.getElementById('costs').innerHTML += /*html*/`
-             <div class="minimumOrderValue">
-                    <img src="/Lieferino/icons/basket-shopping-solid.svg" alt="">
-                    <span>Du hast den Mindestbestellwert von 12,00 EUro noch nicht erreicht. Bitte lege weitere Artikel in deinen Warenkorb um zu bestellen</span>          
-                </div>`
-        }
+        checkDeliveryCosts(subTotal);
+        checkMinimumOrderValue(subTotal);
     }
-
-
-
 }
 
 function placeOrder(i) {
@@ -172,9 +89,8 @@ function placeOrder(i) {
     basket[0].name.splice(0, basket[0].name.length);
     basket[0].price.splice(0, basket[0].price.length);
     basket[0].totalPrice.splice(0, basket[0].totalPrice.length);
-    alert("Deine Testbestellung wurde erfolgreich übertragen, wird aber nie bei dir ankommen.");
     renderBasket();
-
+    alert("Deine Testbestellung wurde erfolgreich übertragen, wird aber nie bei dir ankommen.");
 }
 
 function deleteItem(i) {
@@ -185,21 +101,54 @@ function deleteItem(i) {
     renderBasket()
 }
 
-function checkDeliverCosts(x) {
-    if (x >= 50) {
-        let deliverCosts = 0.00;
-        return deliverCosts;
-    } else {
-        let deliverCosts = 4.99;
-        return deliverCosts;
-    }
-
-}
-
 function showHideBasket() {
     document.getElementById('shoppingBasket').classList.toggle('showOverlayBasket');
 }
 
+function showAmmountOfItems() {
+    let numberItemsInBasket = 0;
+    if (basket[0].ammount.length <= 0) {
+        document.getElementById('numberItems').innerText = ``;
+    } else {
+        for (let i = 0; i < basket[0].ammount.length; i++) {
+            numberItemsInBasket += +basket[0].ammount[i];
+            document.getElementById('numberItems').innerText = `${numberItemsInBasket}`;
+        }
+    }
+}
+
+function calculateNewBasketValuePlus(newAmmount, i) {
+    let price = parseFloat(basket[0].price[i]);
+    let newPrice = (+price * +newAmmount);
+    basket[0].totalPrice[i] = parseFloat(newPrice).toFixed(2);
+}
+
+function checkMinimumOrderValue(subTotal) {
+    if (subTotal >= 12) {
+        document.getElementById('costs').innerHTML += orderButtonHTML();
+    } else {
+        document.getElementById('costs').innerHTML += minimumOrderValueHTML();
+    }
+}
+
+function checkDeliveryCosts(subTotal) {
+    if (subTotal >= 50) {
+        let deliverCosts = 0.00;
+        let totalCosts = +subTotal + +deliverCosts;
+        document.getElementById('costs').innerHTML = costsHTML(subTotal, deliverCosts, totalCosts);
+    } else {
+        let deliverCosts = 4.99;
+        let totalCosts = +subTotal + +deliverCosts;
+        document.getElementById('costs').innerHTML = costsHTML(subTotal, deliverCosts, totalCosts);
+    }
+}
+
+function pushToBasket(newBasketMealName, newBasketMealPrice) {
+    basket[0].name.push(newBasketMealName);
+    basket[0].price.push(newBasketMealPrice);
+    basket[0].totalPrice.push(newBasketMealPrice);
+    basket[0].ammount.push(1);
+}
 
 
 
