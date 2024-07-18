@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -18,9 +18,7 @@
 
 </head>
 
-<body onload="renderMeals(), renderBasket()">
-
-    <div class="overflowHidden">
+<body onload="renderMeals(),loadBasket(), renderBasket()">
         <header>
             <div id="Top" class="logoHeader">
                 <img src="/Lieferino/icons/logo.svg" alt="Lieferlogo">
@@ -29,17 +27,15 @@
             <h3>Speisekarte</h3>
             <div class="flagAndBasket">
                 <img class="flag" src="/Lieferino/img/flag.png" alt="Regenbogenfagge">
-                <img class="mobileBasket" onclick="showHideBasket()" src="/Lieferino/icons/basket-shopping-solid.svg"
+                <img class="mobileBasket" onclick="showMobileBasket()" src="/Lieferino/icons/basket-shopping-solid.svg"
                     alt="">
                 <span class="mobileBasket" id="numberItems"></span>
             </div>
         </header>
         <main>
             <div class="mainContent">
-
                 <div class="titleBurger">
                     <div class="burgerLogo">
-
                     </div>
                 </div>
                 <div class="details">
@@ -85,10 +81,7 @@
                 <div id="mealSection" class="mealSection">
 
                 </div>
-
-
             </div>
-
             <div id="shoppingBasket" class="shoppingBasket">
                 <h2>Warenkorb</h2>
                 <div class="deliverOrTakeAway">
@@ -108,10 +101,8 @@
                     </div>
                 </div>
                 <div id="basket">
-
                 </div>
                 <div id="costs">
-
                 </div>
             </div>
         </main>
@@ -123,10 +114,9 @@
             </div>
         </footer>
         <div id="dialogArea">
-
         </div>
-    </div>
-
+        <div id="alertArea">
+        </div>
 </body>
 
 </html>

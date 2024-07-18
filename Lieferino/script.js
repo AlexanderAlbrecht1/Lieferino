@@ -10,6 +10,7 @@ function renderMeals() {
             document.getElementById(`${headlineMealBox}`).innerHTML += generateMealDetailsHTML(index, x, meal, description, price.toFixed(2));
         }
     }
+    
 }
 
 function addToBasket(index, x) {
@@ -20,9 +21,10 @@ function addToBasket(index, x) {
         pushToBasket(newBasketMealName, newBasketMealPrice);
     } else {
         let y = basket[0].name.indexOf(newBasketMealName);
-        increaseAmmount(y);
+        increaseAmmountMobile(y);
     }
-    renderBasket();
+    renderBasket()
+    saveBasket();
 }
 
 function renderBasket() {
@@ -48,11 +50,35 @@ function increaseAmmount(i) {
     if (newAmmount >= 20) {
         calculateNewBasketValuePlus(newAmmount, i);
         renderBasket();
+        showMobileBasket();
         document.getElementById(`plus${i}`).disabled = true;
+        document.getElementById(`mobileplus${i}`).disabled = true;
         criticalValueDialog();
+        saveBasket();
     } else {
         calculateNewBasketValuePlus(newAmmount, i);
         renderBasket();
+        showMobileBasket();
+        saveBasket();
+    }
+}
+
+function increaseAmmountMobile(i) {
+    let ammount = parseFloat(basket[0].ammount[i]);
+    let newAmmount = ammount + 1;
+    basket[0].ammount[i] = newAmmount;
+    if (newAmmount >= 20) {
+        calculateNewBasketValuePlus(newAmmount, i);
+        renderBasket();
+        showMobileBasket();
+        document.getElementById(`plus${i}`).disabled = true;
+        document.getElementById(`mobileplus${i}`).disabled = true;
+        criticalValueDialog();
+        saveBasket();
+    } else {
+        calculateNewBasketValuePlus(newAmmount, i);
+        renderBasket();
+        saveBasket();
     }
 }
 
@@ -65,8 +91,11 @@ function decreaseAmmount(i) {
     basket[0].totalPrice[i] = newPrice.toFixed(2);
     if (newAmmount <= 0) {
         deleteItem(i);
+        saveBasket();
     } else {
         renderBasket();
+        showMobileBasket();
+        saveBasket();
     }
 }
 
@@ -91,6 +120,7 @@ function placeOrder(i) {
     basket[0].totalPrice.splice(0, basket[0].totalPrice.length);
     renderBasket();
     placeOrderDialog();
+    saveBasket();
 }
 
 function deleteItem(i) {
@@ -98,11 +128,9 @@ function deleteItem(i) {
     basket[0].name.splice([i], 1);
     basket[0].price.splice([i], 1);
     basket[0].totalPrice.splice([i], 1);
-    renderBasket()
-}
-
-function showHideBasket() {
-    document.getElementById('shoppingBasket').classList.toggle('showOverlayBasket');
+    renderBasket();
+    showMobileBasket();
+    saveBasket();
 }
 
 function showAmmountOfItems() {
@@ -151,17 +179,103 @@ function pushToBasket(newBasketMealName, newBasketMealPrice) {
 }
 
 function placeOrderDialog() {
-    document.getElementById('dialogArea').innerHTML = ``;
-    document.getElementById('dialogArea').innerHTML = orderDialogHTML();
+    document.getElementById('alertArea').innerHTML = ``;
+    document.getElementById('alertArea').innerHTML = orderDialogHTML();
 }
 
 function criticalValueDialog() {
-    document.getElementById('dialogArea').innerHTML = ``;
-    document.getElementById('dialogArea').innerHTML = crtiticalValueDialogHTML();
+    document.getElementById('alertArea').innerHTML = ``;
+    document.getElementById('alertArea').innerHTML = crtiticalValueDialogHTML();
 }
 
 function closeDialog() {
     document.getElementById('dialogArea').innerHTML = ``;
+    document.getElementById('alertArea').innerHTML = ``;
+}
+
+function showMobileBasket() {
+    disableScroll()
+    document.getElementById('dialogArea').innerHTML = ``;
+    document.getElementById('dialogArea').innerHTML = createMobileContainerHTML();
+    document.getElementById('basketMobil').innerHTML = ``;
+    if (basket[0].ammount.length == 0) {
+        document.getElementById('basketMobil').innerHTML = mobileEmptyBasketHTML();
+    } else {
+        for (let i = 0; i < basket[0].name.length; i++) {
+            let name = basket[0].name[i];
+            let price = parseFloat(basket[0].totalPrice[i]);
+            let ammount = basket[0].ammount[i];
+            document.getElementById('basketMobil').innerHTML += mobileBasketItemHTML(ammount, name, price, i,);
+        }
+    }
+    showAmmountOfItems();
+    renderCostsMobile();
+}
+
+function renderCostsMobile() {
+    document.getElementById('costsMobile').innerHTML = ``;
+    if (basket[0].ammount.length == 0) {
+        document.getElementById('costsMobile').innerHTML = ``;
+    } else {
+        let subTotal = 0;
+        for (let i = 0; i < basket[0].totalPrice.length; i++) {
+            subTotal += +basket[0].totalPrice[i];
+        }
+        checkDeliveryCostsMobile(subTotal);
+        checkMinimumOrderValueMobile(subTotal);
+    }
+}
+
+function checkDeliveryCostsMobile(subTotal) {
+    if (subTotal >= 50) {
+        let deliverCosts = 0.00;
+        let totalCosts = +subTotal + +deliverCosts;
+        document.getElementById('costsMobile').innerHTML = costsHTML(subTotal, deliverCosts, totalCosts);
+    } else {
+        let deliverCosts = 4.99;
+        let totalCosts = +subTotal + +deliverCosts;
+        document.getElementById('costsMobile').innerHTML = costsHTML(subTotal, deliverCosts, totalCosts);
+    }
+}
+
+function checkMinimumOrderValueMobile(subTotal) {
+    if (subTotal >= 12) {
+        document.getElementById('costsMobile').innerHTML += mobileOrderButtonHTML();
+    } else {
+        document.getElementById('costsMobile').innerHTML += minimumOrderValueHTML();
+    }
+}
+
+function disableScroll() {
+    document.getElementById('html').classList.add('overflowHidden');
+}
+
+function enableScroll() {
+    document.getElementById('html').classList.remove('overflowHidden');
+}
+
+function saveBasket() {
+    let nameAsText = JSON.stringify(basket[0].name);
+    localStorage.setItem('name',nameAsText);
+    let priceAsText = JSON.stringify(basket[0].price);
+    localStorage.setItem('price', priceAsText);
+    let ammountAsText = JSON.stringify(basket[0].ammount);
+    localStorage.setItem('ammount', ammountAsText);
+    let totalPriceAsText = JSON.stringify(basket[0].totalPrice);
+    localStorage.setItem('totalPrice', totalPriceAsText);
+}
+
+function loadBasket() {
+    let nameAsText = localStorage.getItem('name');
+    let priceAsText = localStorage.getItem('price');
+    let ammountAsText = localStorage.getItem('ammount');
+    let totalPriceAsText = localStorage.getItem('totalPrice');
+    if (nameAsText && priceAsText && ammountAsText && totalPriceAsText) {
+        basket[0].name = JSON.parse(nameAsText);
+        basket[0].price = JSON.parse(priceAsText);
+        basket[0].ammount = JSON.parse(ammountAsText);
+        basket[0].totalPrice = JSON.parse(totalPriceAsText);
+    }
 }
 
 
